@@ -1,0 +1,283 @@
+/* ===== Reset & 全局樣式 ===== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+#autumnCanvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(to bottom, #FFDAB9, #A0522D);
+  z-index: -1;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  font-family: system-ui, sans-serif;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+
+/* ===== Header ===== */
+.site-header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 7vh;
+  background: #cd863fad;
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  padding: 0 3%;
+  z-index: 100;
+}
+
+.header-content {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Logo */
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-icon {
+  width: 3vh;
+  height: 3vh;
+  fill: currentColor;
+  color: #FFF8DC;
+}
+
+.logo-text .site-title {
+  font-size: 24pt;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #FFF8DC;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: #FFF8DC;
+  font-size: 12pt;
+  transition: color .3s;
+}
+
+.nav-link:hover {
+  color: #FFDAB9;
+}
+
+.nav-link.about-us span {
+  font-size: 10pt;
+  margin-right: 20px;
+}
+
+.nav-link.login strong {
+  font-size: 14pt;
+}
+
+/* ===== 第二排導覽 (課程列表) ===== */
+
+a {
+  text-decoration: none;
+}
+
+.course-nav {
+  position: fixed;
+  top: 7vh;
+  width: 100%;
+  height: 5vh;
+  background: #fff5eeb1;
+  border-bottom: 1px solid #DEB887;
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  z-index: 90;
+}
+
+.course-list-title {
+  height: 5vh;
+  width: 25vw;
+  font-size: 14pt;
+  font-weight: bold;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  padding-left: 3%;
+  padding-right: 3%;
+  color: #8B4513;
+}
+
+.course-list-title:hover {
+  background-color: #A0522D;
+  color: #FFDAB9;
+}
+
+.main-content {
+  margin-top: 16vh;
+  margin-left: 7vw;
+  margin-right: 7vw;
+  flex: 1;
+
+}
+
+.latest-courses {
+  background: #f4a560;
+  backdrop-filter: blur(10px);
+  padding: 2rem 5vw;
+  color: #fff;
+  text-align: center;
+  border-radius: 20px 20px 0 0;
+  box-shadow: 20px 30px 20px rgba(0, 0, 0, 0.2);
+}
+
+.latest-courses .section-title {
+  font-size: 18pt;
+  margin-bottom: 1rem;
+}
+
+.login-prompt {
+  font-size: 14pt;
+  margin-bottom: 1rem;
+  color: #FFF8DC;
+}
+
+.btn-view-content {
+  padding: 8px 16px;
+  background: #D2691E;
+  border: none;
+  border-radius: 20px;
+  font-size: 14pt;
+  color: #FFF8DC;
+  cursor: pointer;
+  transition: background .3s;
+}
+
+.btn-view-content:hover {
+  background: #A0522D;
+}
+
+.featured-courses {
+  background: #fff5ee39;
+  backdrop-filter: blur(10px);
+  padding: 3rem 0;
+  border-radius: 0 0 20px 20px;
+  box-shadow: 20px 20px 20px rgba(0, 0, 0, 0.263);
+}
+
+.featured-courses .section-title {
+  font-size: 18pt;
+  margin-bottom: 2rem;
+  color: #8B4513;
+  text-align: center;
+}
+
+/* 推薦老師排版 */
+.teacher-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.teacher-card {
+  background: #FFF;
+  border-radius: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  width: 220px;
+  text-align: center;
+  margin: 10px;
+
+}
+
+.teacher-img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+.teacher-name {
+  font-size: 16pt;
+  color: #8B4513;
+  margin-bottom: 1rem;
+}
+
+.class-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.class-item {
+  font-size: 14pt;
+  color: #5A2D0C;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #DEB887;
+}
+
+.no-class {
+  font-size: 14pt;
+  color: #A0522D;
+}
+
+.material-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  list-style: none;
+  padding: 0;
+  margin: 0 0 2rem 0;
+  gap: 1rem;
+}
+
+.material-list li {
+  background-color: #fff8dc;
+  color: #5a2d0c;
+  padding: 1rem;
+  border-radius: 10px;
+  font-size: 1rem;
+  flex: 0 1 calc(20% - 1rem);
+  /* 每列最多 5 個，考慮 gap */
+  text-align: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  min-width: 150px;
+}
+
+.material-list li:hover {
+  transform: scale(1.05);
+  background-color: #ffe4b5;
+  transition: all 0.3s ease;
+}
+
+.featured-courses .course-cards,
+.teacher-container {
+  gap: 2rem;
+}
+
+.site-footer {
+  background: #8B4513;
+  height: 7vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2rem;
+  padding: 4vh;
+}
+
+.site-footer span {
+  color: #FFF8DC;
+}

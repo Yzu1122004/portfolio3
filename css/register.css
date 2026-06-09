@@ -1,0 +1,175 @@
+body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+}
+
+#autumnCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(to bottom, #FFDAB9, #A0522D);
+    z-index: -1;
+}
+
+.container {
+    position: relative;
+    width: 100%;
+    height: 75vh;
+    justify-content: center;
+    align-items: center;
+}
+
+.card {
+    position: absolute;
+    padding: 5vh;
+    height: 100%;
+    border-radius: 25px;
+    box-sizing: border-box;
+}
+
+/* —— 在你原本的 CSS 裡，找到 .card-left/.card-middle/.card-right，然後加上 transition —— */
+
+.card-left {
+    width: 25vw;
+    background-color: #d7ab8b95;
+    backdrop-filter: blur(10px);
+    color: white;
+    z-index: 3;
+
+    /* 新增：讓 left 欄位的變動有動畫 */
+    position: absolute;
+    /* 確定這邊是 position: absolute; */
+    left: 50vw;
+    /* 初始位置 */
+    transition: left 0.5s ease;
+}
+
+.card-middle {
+    width: 45vw;
+    background-color: #f5d6b59f;
+    backdrop-filter: blur(10px);
+    left: 16vw;
+    padding-left: 8vw;
+    /* 從 13vw → 8vw */
+    padding-right: 15vw;
+    /* 從 10vw → 15vw */
+    z-index: 2;
+
+    /* 新增：讓 padding-left / padding-right 的變化有動畫 */
+    transition: padding-left 0.5s ease, padding-right 0.5s ease;
+}
+
+.card-right {
+    width: 60vw;
+    background-color: #e8e0d493;
+    backdrop-filter: blur(10px);
+    position: absolute;
+    /* 確定也是 position: absolute; */
+    right: 10%;
+    /* 初始位置 */
+    z-index: 1;
+
+    /* 新增：讓 right 欄位的變動有動畫 */
+    transition: right 0.5s ease;
+}
+
+/* —— 定義「註冊模式」下，各卡片要跑到的最終位置 —— */
+.register-active .card-left {
+    left: 50vw;
+    /* 從 left:0 → left:50vw */
+}
+
+.register-active .card-middle {
+    padding-left: 8vw;
+    /* 從 13vw → 8vw */
+    padding-right: 15vw;
+    /* 從 10vw → 15vw */
+}
+
+.register-active .card-right {
+    right: 10%;
+    /* 從 right:0 → right:90px（可改成你想要的單位） */
+}
+
+.back-button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 16px;
+    margin-bottom: 50px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.card-left p {
+    margin-bottom: 20px;
+}
+
+.card-left h2 {
+    font-size: 28px;
+}
+
+.register-button {
+    background: none;
+    border: 2px solid white;
+    border-radius: 20px;
+    color: white;
+    padding: 8px 16px;
+    cursor: pointer;
+}
+
+.card-middle h2 {
+    font-size: 28px;
+    margin-bottom: 30px;
+}
+
+.card-middle input,
+.card-middle select {
+    display: block;
+    width: 100%;
+    margin-bottom: 15px;
+    padding: 12px;
+    border: 3px solid #8b602c;
+    border-radius: 10px;
+    background-color: #f2f2f2;
+    font-size: 16px;
+}
+
+.login-button {
+    background-color: #fb8e3b;
+    color: white;
+    border: none;
+    border-radius: 15px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    width: 100px;
+    align-self: flex-start;
+    margin-top: 10px;
+}
+
+.icon-placeholder {
+    font-size: 50px;
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+}
+
+.divcontent {
+    margin-top: 3vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+    flex-direction: column;
+}
+
+.space {
+    width: 20vw;
+}

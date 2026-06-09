@@ -1,0 +1,67 @@
+* {
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+}
+
+/* ===== Header ===== */
+.site-header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 7vh;
+  background-color: #c8c8c8;
+  display: flex;
+  align-items: center;
+  padding: 0 3%;
+  z-index: 100;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+/* Logo */
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-icon {
+  width: 3vh;
+  height: 3vh;
+  fill: currentColor;
+}
+
+.logo-text .site-title {
+  font-size: 24pt;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #000;
+}
+
+/* Header 右側連結 */
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: #000;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.nav-link.about-us span {
+  font-size: 10pt;
+}
+
+.nav-link.login strong {
+  font-size: 14pt;
+}

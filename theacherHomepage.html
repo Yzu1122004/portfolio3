@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./teacherCSS/teacherPage.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            text-decoration: none;
+        }
+
+        html,
+        body {
+            height: 100%;
+            width: 100%;
+        }
+
+
+        /* ===== Header ===== */
+        .site-header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 7vh;
+            background: #CD853F;
+            display: flex;
+            align-items: center;
+            padding: 0 3%;
+            z-index: 100;
+        }
+
+        .header-content {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Logo */
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            width: 3vh;
+            height: 3vh;
+            fill: currentColor;
+            color: #FFF8DC;
+        }
+
+        .logo-text .site-title {
+            font-size: 24pt;
+            font-family: Arial, Helvetica, sans-serif;
+            color: #FFF8DC;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            color: #FFF8DC;
+            font-size: 12pt;
+            transition: color .3s;
+        }
+
+        .nav-link:hover {
+            color: #FFDAB9;
+        }
+
+        .nav-link.about-us span {
+            font-size: 10pt;
+            margin-right: 20px;
+        }
+
+        .nav-link.login strong {
+            font-size: 14pt;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="autumnCanvas"></canvas>
+    <header class="site-header">
+        <div class="header-content">
+            <!-- Logo -->
+            <div class="logo-container">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 24 24">
+                        <path
+                            d="M16 9h3l-5 7m-4-7h4l-2 8M5 9h3l2 7m5-12h2l2 3h-3m-5-3h2l1 3h-4M7 4h2L8 7H5m1-5L2 8l10 14L22 8l-4-6H6z">
+                        </path>
+                    </svg>
+                </div>
+                <div class="logo-text">
+                    <span class="site-title"><strong>數學教育平台</strong></span>
+                </div>
+            </div>
+
+            <!-- 右側導覽連結 -->
+            <nav class="header-nav">
+                <a href="./about2.html" class="nav-link about-us">
+                    <span>關於我們</span>
+                </a>
+                <!-- <a href="./loging.html" class="nav-link login"> -->
+                <a href="./php/logout.php" class="nav-link login">
+                    <strong>登出</strong>
+                </a>
+            </nav>
+        </div>
+    </header>
+    <nav class="teacherNav">
+        <a class="navBox navBox1 currentNav" id="" href="./theacherHomepage.html">班級設定</a>
+        <a class="navBox" href="./TextbookManage.html">教材與題目</a>
+        <a class="navBox" href="./classData.html">班級數據</a>
+        <a class="navBox" href="./makeTest.html">製作教材</a>
+    </nav>
+    <main id="main">
+        <div class="leftSide">
+            <div class="teacherAvatar">
+                <div id="teacherAvatarImg">
+
+                </div>
+            </div>
+            <div id="teacherName" class="lBox">
+                <p>教師名</p><img id="openChangeTeacherPageButton" src="./teacherIMGS/pencil.png" alt="">
+            </div>
+            <div class="lBox" id="createNewClass">
+                建立新班級
+            </div>
+            <div class="classRoom">
+                <div class="classRoomName currentClassRoom">3年2班</div>
+                <div class="classRoomName">3年1班</div>
+            </div>
+        </div>
+        <div class="rightSide">
+            <div class="rightSideBox">
+                <div class="infor">
+                   
+                    <div id="classNameBox">
+                        班級名稱
+                    </div>
+                  
+                        <div id="crewNumber" class="classBoxs">
+                            <p>人數: </p>
+                        </div>
+                        <div id="classID" class="classBoxs">
+                            <p>代碼:</p>
+                        </div>
+                    
+                     <div class="deleteClassBtn">
+                        刪除教室
+                    </div>
+                </div>
+
+                <div class="classTable">
+                    <table class="classTableBox">
+                        <tr class="classTabletd">
+                            <td>學生名稱</td>
+                            <td>帳號ID</td>
+                            <td>移除</td>
+                        </tr>
+                        <div class="notFound">
+                            未選擇班級
+                        </div>
+
+
+                    </table>
+                </div>
+
+            </div>
+        </div>
+        <div id="changeTeacherPage">
+          <form action="./api/teacherHome/update_teacher.php" method="POST" class="changeTeacherPageBox" enctype="multipart/form-data">
+
+                <img id="closeChangeTeacherPage" class="X_img" src="./teacherIMGS/X.png" alt="notFound">
+                <p>更改教師個資</p>
+                <table>
+
+                    <tr>
+                        <td>更改名稱</td>
+                        <td> <input type="text" id="name"></td>
+                    </tr>
+                    <tr>
+                        <td>更改大頭貼</td>
+                        <td> <input type="file" name="img" id="img"></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td> <input type="submit" class="submit"></td>
+                    </tr>
+                </table>
+            </form>
+
+        </div>
+        <div id="createNewClassPage">
+            <form action="" class="changeTeacherPageBox">
+                <img id="closeCreateNewClassPage" class="X_img" src="./teacherIMGS/X.png" alt="notFound">
+                <p>新增教室</p>
+                <table>
+                    <tr>
+                        <td>教室名稱</td>
+                        <td> <input type="text" id="classname"></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td> <input type="submit" class="submit"></td>
+                    </tr>
+                </table>
+            </form>
+
+        </div>
+    </main>
+    <footer>
+
+    </footer>
+</body>
+<script src="./teacherJS/teacherPage.js"></script>
+<script src="./teacherJS/homePage.js"></script>
+<script src="./teacherJS/logout.js"></script>
+
+</html>

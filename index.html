@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>數學教育平台</title>
+  <link rel="stylesheet" href="./css/index.css" />
+  <script src="./js/index.js"></script>
+</head>
+
+<body>
+  <!-- Canvas 背景動畫 -->
+  <canvas id="autumnCanvas"></canvas>
+
+  <!-- Header 區 -->
+  <header class="site-header">
+    <div class="header-content">
+      <!-- Logo -->
+      <div class="logo-container">
+        <div class="logo-icon">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M16 9h3l-5 7m-4-7h4l-2 8M5 9h3l2 7m5-12h2l2 3h-3m-5-3h2l1 3h-4M7 4h2L8 7H5m1-5L2 8l10 14L22 8l-4-6H6z">
+            </path>
+          </svg>
+        </div>
+        <div class="logo-text">
+          <span class="site-title"><strong>數學教育平台</strong></span>
+        </div>
+      </div>
+
+      <!-- 右側導覽連結 -->
+      <nav class="header-nav">
+        <a href="./about.html" class="nav-link about-us">
+          <span>關於我們</span>
+        </a>
+        <!-- <a href="./loging.html" class="nav-link login"> -->
+        <a href="./php/login.php" class="nav-link login">
+          <strong>登入</strong>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- 第二排導覽：課程列表 -->
+  <nav class="course-nav">
+    <a href="./php/login.php">
+      <div class="course-list-title">課程列表</div>
+    </a>
+  </nav>
+
+  <!-- 主要內容 -->
+  <main class="main-content">
+    <section class="latest-courses">
+      <h2 class="section-title">最新課程</h2>
+      <p class="login-prompt">請先登入以查看最新課程。</p>
+      <a href="./php/login.php"><button class="btn-view-content">點擊登入</button></a>
+    </section>
+
+    <!-- 推薦老師：未登入前隨機選一位老師及其最多3個課程 -->
+    <section class="featured-courses">
+      <h2 class="section-title">推薦老師</h2>
+      <a href="./php/login.php">
+        <div class="teacher-container" id="teacherCards">
+          <!-- JS 動態插入老師卡片與課程清單 -->
+        </div>
+      </a>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <span>&copy;2025 YZU 學生團隊</span>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      fetch('api/getRandomTeacher.php')
+        .then(res => res.json())
+        .then(data => {
+          const container = document.getElementById('teacherCards');
+          data.teachers.forEach(teacher => {
+            const teacherCard = document.createElement('div');
+            teacherCard.className = 'course-card teacher-card';
+
+            // 老師頭像
+            if (teacher.userIMG) {
+              const img = document.createElement('img');
+              img.src = teacher.userIMG;
+              img.alt = teacher.Name + ' 頭像';
+              img.className = 'teacher-img';
+              teacherCard.appendChild(img);
+            }
+
+            // 老師名稱
+            const teacherName = document.createElement('h3');
+            teacherName.textContent = teacher.Name;
+            teacherName.className = 'teacher-name';
+            teacherCard.appendChild(teacherName);
+
+            // 課程列表
+            if (teacher.classes.length > 0) {
+              const listTitle = document.createElement('p');
+              listTitle.textContent = '課程列表：';
+              listTitle.className = 'class-list-title';
+              teacherCard.appendChild(listTitle);
+
+              teacher.classes.forEach(cls => {
+                const item = document.createElement('p');
+                item.textContent = `ID ${cls.ClassID} - ${cls.ClassName}`;
+                item.className = 'class-item';
+                teacherCard.appendChild(item);
+              });
+            } else {
+              const noClass = document.createElement('p');
+              noClass.textContent = '此老師暫無課程';
+              noClass.className = 'no-class';
+              teacherCard.appendChild(noClass);
+            }
+
+            container.appendChild(teacherCard);
+          });
+        })
+        .catch(err => console.error('Error fetching teachers:', err));
+    });
+
+    const canvas = document.getElementById('autumnCanvas');
+    const ctx = canvas.getContext('2d');
+    let W, H;
+    function resize() {
+      W = canvas.width = window.innerWidth;
+      H = canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    class Leaf {
+      constructor() {
+        this.x = Math.random() * W;
+        this.y = -20;
+        this.size = 12 + Math.random() * 15;
+        // 速度調整為 0.5 ~ 1.5
+        this.speed = 0.5 + Math.random() * 1;
+        this.angle = Math.random() * Math.PI;
+        // 旋轉速度調整為 0.005 ~ 0.015
+        this.angularSpeed = 0.005 + Math.random() * 0.01;
+      }
+      update() {
+        this.y += this.speed;
+        this.x += Math.sin(this.angle) * 0.5;
+        this.angle += this.angularSpeed;
+        if (this.y > H) {
+          this.y = -20;
+          this.x = Math.random() * W;
+        }
+      }
+      draw() {
+        ctx.save();
+        ctx.translate(this.x, this.y);
+        ctx.rotate(Math.sin(this.angle));
+        ctx.fillStyle = `rgba(211, 144, 88, 0.8)`;
+        ctx.beginPath();
+        ctx.moveTo(0, 0);
+        ctx.bezierCurveTo(this.size / 2, this.size / 2, this.size / 2, this.size, 0, this.size);
+        ctx.bezierCurveTo(-this.size / 2, this.size, -this.size / 2, this.size / 2, 0, 0);
+        ctx.fill();
+        ctx.restore();
+      }
+    }
+
+    // 減少葉子數量至 30
+    const leaves = Array.from({ length: 30 }, () => new Leaf());
+    function animate() {
+      ctx.clearRect(0, 0, W, H);
+      leaves.forEach(leaf => { leaf.update(); leaf.draw(); });
+      requestAnimationFrame(animate);
+    }
+    animate();
+  </script>
+</body>
+
+</html>
