@@ -2,7 +2,6 @@
 header('Content-Type: application/json; charset=utf-8');
 require_once '../php/db_connect.php';
 
-// 取得 4 位隨機老師
 $sql = "SELECT UserID, Name, userIMG
         FROM `user`
         WHERE Role = 'teacher'
@@ -12,7 +11,7 @@ $res = $mysqli->query($sql);
 
 if (!$res) {
     http_response_code(500);
-    echo json_encode(['error' => $mysqli->error]);
+    echo json_encode(['error' => $mysqli->error], JSON_UNESCAPED_UNICODE);
     exit;
 }
 
@@ -26,16 +25,28 @@ while ($row = $res->fetch_assoc()) {
         'classes' => []
     ];
 
-    // 查詢該老師最多 3 門課
     $stmt = $mysqli->prepare("SELECT ClassID, ClassName FROM `class` WHERE TeacherID = ? ORDER BY RAND() LIMIT 3");
+    if (!$stmt) {
+        http_response_code(500);
+        echo json_encode(['error' => $mysqli->error], JSON_UNESCAPED_UNICODE);
+        exit;
+    }
+
     $stmt->bind_param('i', $teacher['UserID']);
     $stmt->execute();
-    $classRes = $stmt->get_result();
-    $teacher['classes'] = $classRes->fetch_all(MYSQLI_ASSOC);
-    $stmt->close();
+    $stmt->bind_result($classID, $className);
 
+    while ($stmt->fetch()) {
+        $teacher['classes'][] = [
+            'ClassID' => $classID,
+            'ClassName' => $className
+        ];
+    }
+
+    $stmt->close();
     $teachers[] = $teacher;
 }
 
 echo json_encode(['teachers' => $teachers], JSON_UNESCAPED_UNICODE);
 $mysqli->close();
+?>
